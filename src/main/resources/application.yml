@@ -1,0 +1,35 @@
+server:
+  port: 8083
+  servlet:
+    context-path: /school
+  #编码
+  tomcat:
+    uri-encoding: UTF-8
+
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://47.106.23.238:3306/db_school?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
+    username: test1
+    password: 123456
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+#编码
+
+#日志
+logging:
+  path: .
+  file: info.log
+  level:
+    com.mybatis.mybatisplus.demo1.mapper: debug
+
+
+
+
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
