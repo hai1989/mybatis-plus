@@ -1,9 +1,12 @@
 package com.mybatis.mybatisplus.demo1.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mybatis.mybatisplus.demo1.entity.Scores;
 import com.mybatis.mybatisplus.demo1.mapper.ScoresMapper;
 import com.mybatis.mybatisplus.demo1.service.IScoresService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,4 +20,12 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ScoresServiceImpl extends ServiceImpl<ScoresMapper, Scores>  implements IScoresService {
+
+    @Autowired
+    private  ScoresMapper scoresMapper;
+
+    @Override
+    public IPage<Scores> selectScorePage(Page<Scores> page, Integer sid) {
+        return scoresMapper.selectPageScore(page,sid);
+    }
 }
