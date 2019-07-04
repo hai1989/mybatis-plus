@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Program:       demo1
@@ -42,6 +43,12 @@ public class ScoresController {
         return  iScoresService.page(page);
     }
 
+    @GetMapping("searchPage11")//service分页
+    public IPage<Map<String, Object>> searchPage11(long current, long size){
+
+        Page<Scores> page = new Page<Scores>(current,size,true);
+        return  iScoresService.pageMaps(page);
+    }
     @GetMapping("searchPage2")//mapper分页
     public IPage<Scores> searchPage2(long current, long size){
 
