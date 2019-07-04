@@ -2,4 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mybatis.mybatisplus.demo1.mapper.TeacherMapper">
 
+    <select id="listByCondition" resultType="com.mybatis.mybatisplus.demo1.entity.Teacher">
+        select ${ew.sqlSelect}  from ${tableName}  ${ew.customSqlSegment}
+    </select>
+
+    <select id="updateByCondition">
+        update ${tableName} set ${ew.sqlSet} ${ew.customSqlSegment}
+    </select>
 </mapper>

@@ -2,6 +2,7 @@ package com.mybatis.mybatisplus.demo1.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.mybatis.mybatisplus.demo1.entity.Teacher;
 import com.mybatis.mybatisplus.demo1.mapper.TeacherMapper;
 import com.mybatis.mybatisplus.demo1.service.ITeacherService;
@@ -9,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Wrapper;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +34,25 @@ public class TeacherController {
     @Autowired
     private TeacherMapper teacherMapper;
 
+    @GetMapping("/findCon")
+    public List<Teacher> findCon(String column,String values){
+
+        return  teacherMapper.listByCondition("teacher",Wrappers.query().select("*").in(column,values));
+    }
+
+//    @GetMapping("/updateCon")
+//    public String updateCon(String column,String values){
+//
+//        return  teacherMapper.updateByCondition("teacher",Wrappers.<Teacher>update().set("ssex","女").in(column,values))==1?"成功":"失败";
+//    }
+    @GetMapping("/updateCon")
+    public String updateCon(String column,String values){
+           boolean flag =false;
+          teacherMapper.updateByCondition("teacher",Wrappers.<Teacher>update().set("ssex","女").in(column,values));
+          flag=true;
+          return  flag==true?"成功":"失败";
+
+    }
     @GetMapping("/findAll")
     public List<Teacher> findAll(){
 
