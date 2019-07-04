@@ -1,8 +1,11 @@
 package com.mybatis.mybatisplus.demo1.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.mybatis.mybatisplus.demo1.entity.Students;
+import com.mybatis.mybatisplus.demo1.mapper.StudentsMapper;
 import com.mybatis.mybatisplus.demo1.service.IStudentsService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,9 +29,61 @@ public class StudentsController {
 
     @Autowired
     private IStudentsService  studentsService;
+    @Autowired
+    private StudentsMapper  studentsMapper;
 
+    //Mapper CRUD 接口
     //select
-    @GetMapping("findAll")
+    @GetMapping("/selectAll")
+    public List<Students> selectAll(){
+        return  studentsMapper.selectList(null);
+    }
+
+    @GetMapping("/selectOne")
+    public Students selectOne(Integer id){
+        return  studentsMapper.selectOne(new QueryWrapper<Students>().eq("sid",id));
+    }
+
+    @GetMapping("/selectById")
+    public Students selectById(Integer id){
+        return  studentsMapper.selectById(id);
+    }
+
+    @GetMapping("/selectCount")
+    public int selectCount(String  ssex){
+        return  studentsMapper.selectCount(new QueryWrapper<Students>().eq("ssex",ssex));
+    }
+    //insert
+    @GetMapping("/insert")
+    public int insertOne(@ModelAttribute Students students){
+        return  studentsMapper.insert(students);
+    }
+
+    //update
+    @GetMapping("/updateByIdm")
+    public int updateByIdm(@ModelAttribute Students students){
+        return  studentsMapper.updateById(students);
+    }
+
+    @GetMapping("/updateById1m")
+    public int updateById1m(@ModelAttribute Students students,Integer id){
+        return  studentsMapper.update(students,new QueryWrapper<Students>().eq("sid",id));
+    }
+    //delete
+    @GetMapping("/deleteByIdm")
+    public int  deleteByIdm(Integer id){
+        return  studentsMapper.deleteById(id);
+    }
+
+    @GetMapping("/deletem")
+    public int   delete(Integer id){
+        return  studentsMapper.delete(new QueryWrapper<Students>().eq("sid",id));
+    }
+
+
+    // Service CRUD 接口
+    //select
+    @GetMapping("/findAll")
     public List<Students> findAll(){
         return  studentsService.list();
     }
@@ -52,7 +107,7 @@ public class StudentsController {
     // listByMap--用post方式---
     // 有问题：2019-07-04 12:29:23.992  WARN 17080 --- [nio-8083-exec-1] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.method.annotation.MethodArgumentConversionNotSupportedException: Failed to convert value of type 'java.lang.String' to required type 'java.util.Map'; nested exception is java.lang.IllegalStateException: Cannot convert value of type 'java.lang.String' to required type 'java.util.Map': no matching editors or conversion strategy found]
     @PostMapping("/mapId")
-    public Collection<Students>  findByMap(@RequestParam("columnMap") Map<String, Object> columnMap){
+    public Collection<Students>  findByMap(@Param(Constants.WRAPPER_ENTITY_DOT)  @RequestParam("columnMap")  Map<String, Object> columnMap){
         return   studentsService.listByMap(columnMap);
     }
 
