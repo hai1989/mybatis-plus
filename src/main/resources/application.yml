@@ -8,17 +8,30 @@ server:
 
 
 spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://47.106.23.238:3306/db_school?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
-    username: test1
-    password: 123456
+  #编码
   http:
     encoding:
       charset: UTF-8
       enabled: true
       force: true
-#编码
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://47.106.23.238:3306/db_school?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
+    username: test1
+    password: 123456
+    #druid
+    type: com.alibaba.druid.pool.DruidDataSource
+    name: druid1
+druid1:
+  initalSize: 20
+  maxActive: 200
+  minldle: 20
+  maxWait: 30000
+  validationQuery: select 1
+
+
+
 
 #日志
 logging:
