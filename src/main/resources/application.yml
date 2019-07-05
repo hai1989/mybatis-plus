@@ -6,7 +6,6 @@ server:
   tomcat:
     uri-encoding: UTF-8
 
-
 spring:
   #编码
   http:
@@ -30,9 +29,6 @@ druid1:
   maxWait: 30000
   validationQuery: select 1
 
-
-
-
 #日志
 logging:
   path: .
@@ -40,9 +36,9 @@ logging:
   level:
     com.mybatis.mybatisplus.demo1.mapper: debug
 
-
-
-
-
 mybatis-plus:
   mapper-locations: classpath:mapper/*.xml
+  global-config:
+      db-config:
+        logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+        logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)

@@ -1,8 +1,6 @@
 package com.mybatis.mybatisplus.demo1.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -26,4 +24,8 @@ public class Course implements Serializable {
     private  Integer  cid;
     private  String   cname;
     private  Integer tid;
+
+    @TableLogic
+    @TableField(value = "isDeleted")
+    private  Integer isDeleted;
 }
