@@ -3,6 +3,6 @@
 *.iws
 *.iml
 *.ipr
-info.log
+info.log*
 target/
 .idea/*.xml
