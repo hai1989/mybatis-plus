@@ -1,7 +1,9 @@
 package com.mybatis.mybatisplus.demo1.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mybatis.mybatisplus.demo1.entity.Students;
 import com.mybatis.mybatisplus.demo1.mapper.StudentsMapper;
 import com.mybatis.mybatisplus.demo1.service.IStudentsService;
@@ -32,6 +34,25 @@ public class StudentsController {
     @Autowired
     private StudentsMapper  studentsMapper;
 
+    //注解多表--分页
+    @GetMapping("/tableByName")
+    public  List<Map<String,Object>> getStudentAllIfoByName(long current, long size,String name){
+        IPage<Map<String,Object>> page =  new Page<Map<String, Object>>(current,size);
+        return  studentsService.getStuInfoByName(page,name);
+    }
+
+    //注解多表--分页
+    @GetMapping("/tableById")
+    public  List<Map<String,Object>> getStudentAllIfoById(long current, long size,Integer id){
+        IPage<Map<String,Object>> page =  new Page<Map<String, Object>>(current,size);
+        return  studentsService.getStuInfoById(page,id);
+    }
+    //注解多表--分页:return:Ipage
+    @GetMapping("/tableByTotalId")
+    public  IPage<Map<String,Object>> getStudentAllIfTotalById(long current, long size,Integer id){
+        IPage<Map<String,Object>> page =  new Page<Map<String,Object>>(current,size);
+        return  studentsService.getStuInfoTotalById(page,id);
+    }
     //Mapper CRUD 接口
     //select
     @GetMapping("/selectAll")
